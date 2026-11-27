@@ -6,6 +6,7 @@ from odoo import api, http, SUPERUSER_ID
 from odoo.http import request
 from odoo.exceptions import ValidationError
 import requests
+from werkzeug.exceptions import RequestEntityTooLarge
 
 
 def process_locked(registry, tx_id, submitted=None, token=None):
@@ -46,7 +47,7 @@ class XPayController(http.Controller):
     def _headers():
         return {'Cache-Control': 'no-store, private', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff'}
 
-    @http.route('/payment/xpay_lab/checkout', type='http', auth='public', methods=['POST'], csrf=False, sitemap=False)
+    @http.route('/payment/xpay_lab/checkout', type='http', auth='public', methods=['POST'], csrf=False, sitemap=False, website=True)
     def checkout(self, tx_id=None, access_token=None, **kwargs):
         if not self._secure_request():
             return request.make_response('HTTPS is required for XPay checkout.', status=403, headers=self._headers())
@@ -70,7 +71,11 @@ class XPayController(http.Controller):
             return request.make_json_response({'message': 'Invalid payment access.'}, status=403, headers=headers)
         submitted = None
         if request.httprequest.method == 'POST':
-            raw = request.httprequest.stream.read(32769)
+            request.httprequest.max_content_length = 32768
+            try:
+                raw = request.httprequest.get_data(cache=False)
+            except RequestEntityTooLarge:
+                return request.make_json_response({'message': 'Payment payload is too large.'}, status=413, headers=headers)
             signed = request.httprequest.headers.get('PAYMENT-SIGNATURE', '')
             if len(raw) > 32768 or len(signed) > 32768:
                 return request.make_json_response({'message': 'Payment payload is too large.'}, status=413, headers=headers)
