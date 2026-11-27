@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">XPay Provider Configuration</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='credentials']" position="inside">
+                <group string="XPay · Base mainnet USDC" invisible="code != 'xpay_lab'" groups="base.group_system">
+                    <field name="xpay_wallet" placeholder="Merchant Base receiving address" required="code == 'xpay_lab' and state == 'enabled'"/>
+                    <field name="xpay_api_key" password="True" placeholder="Or set XPAY_FACILITATOR_KEY on the Odoo server"/>
+                    <div colspan="2" class="alert alert-info" role="status">
+                        A merchant credential with settlement permission is required. Free extension download; XPay's stated merchant processing fee is 1%, subject to the merchant agreement. Only Base USDC is supported in this release. Test mode does not submit real payments.
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

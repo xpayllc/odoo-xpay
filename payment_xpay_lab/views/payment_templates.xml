@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="redirect_form">
+        <form t-att-action="api_url" method="post">
+            <input type="hidden" name="tx_id" t-att-value="tx_id"/>
+            <input type="hidden" name="access_token" t-att-value="xpay_tx.xpay_access_token"/>
+        </form>
+    </template>
+    <template id="checkout" name="XPay USDC Checkout">
+        <t t-call="portal.frontend_layout">
+            <div id="wrap" class="xpay-checkout-wrap">
+                <section id="xpay-checkout" class="xpay-checkout-card" t-att-data-endpoint="endpoint" t-att-data-token="access_token">
+                    <img src="/payment_xpay_lab/static/description/icon.png" width="72" height="72" alt="XPay logo"/>
+                    <p class="xpay-eyebrow">XPAY · BASE USDC</p>
+                    <h1>Pay with your wallet</h1>
+                    <p>Payment reference <strong t-out="tx.reference"/></p>
+                    <div class="xpay-amount"><span t-out="tx.amount"/> USDC</div>
+                    <p>USD totals are quoted 1:1 in USDC. Review the recipient and amount in your wallet before signing.</p>
+                    <p class="xpay-network">Base mainnet · USDC only</p>
+                    <button id="xpay-connect" type="button" class="btn btn-primary">Connect wallet and pay</button>
+                    <button id="xpay-recheck" type="button" class="btn btn-outline-secondary">Check existing payment</button>
+                    <p id="xpay-status" role="status" aria-live="polite">An Ethereum-compatible browser wallet with Base USDC is required.</p>
+                    <noscript>JavaScript is required for browser-wallet checkout. Ask the merchant for an alternative payment method.</noscript>
+                    <div class="xpay-disclosure">
+                        <p>A signature authorizes a real USDC payment. Never enter a private key or seed phrase here. Automatic refunds and recurring payments are not supported.</p>
+                        <p>After you authorize, public payment details and your signature are sent to XPay Facilitator. The merchant checks the public Base receipt before confirming payment.</p>
+                        <a href="https://x-pay.llc/legal/#privacy" target="_blank" rel="noopener noreferrer">XPay privacy</a>
+                        <span> · </span><a href="https://x-pay.llc/legal/#terms" target="_blank" rel="noopener noreferrer">XPay terms</a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>
