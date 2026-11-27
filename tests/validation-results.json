@@ -32,5 +32,37 @@
     "RPC outage keeps a settled payment pending",
     "settlement hash survives RPC outage",
     "RPC recovery confirms without a second settlement call"
+  ],
+  "http_checks": [
+    {
+      "check": "HTTPS enforced",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "check": "Access checked",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "check": "Quote HTTP",
+      "status": 402,
+      "passed": true
+    },
+    {
+      "check": "Bad JSON",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "check": "Oversize rejected",
+      "status": 413,
+      "passed": true
+    },
+    {
+      "check": "Rendered checkout HTML",
+      "status": 200,
+      "passed": true
+    }
   ]
 }
