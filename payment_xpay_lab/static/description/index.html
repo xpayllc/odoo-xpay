@@ -1,0 +1,35 @@
+<section style="font-family:Arial,sans-serif;color:#173123;max-width:1100px;margin:auto">
+  <img src="banner.jpg" alt="XPay for Odoo 18: USDC checkout and verified Base settlement" style="width:100%;border-radius:18px"/>
+  <div style="padding:32px 12px;text-align:center">
+    <h1 style="font-size:34px;font-weight:700">X PAY LAB USDC Payments</h1>
+    <p style="font-size:18px;color:#53695b">Accept Base USDC through an order-bound x402 payment flow.</p>
+    <p>Published by <strong>X PAY LAB LIMITED</strong>, British Virgin Islands company 2221444.</p>
+  </div>
+  <div class="row" style="margin:0">
+    <div class="col-md-4" style="padding:18px"><h3>Wallet checkout</h3><p>Customers connect an installed Ethereum-compatible browser wallet and authorize the displayed Base USDC payment. No private key or seed phrase is requested.</p></div>
+    <div class="col-md-4" style="padding:18px"><h3>Receipt verification</h3><p>Payment completion requires a successful Base receipt, the exact merchant transfer and the transaction's authorization nonce. Receipts cannot be reused across payments.</p></div>
+    <div class="col-md-4" style="padding:18px"><h3>Careful retries</h3><p>A verified authorization is stored before settlement. Pending checks reuse the same authorization after a timeout, with database locks to serialize attempts.</p></div>
+  </div>
+  <div style="padding:28px;background:#f1f7f2;border-radius:16px;margin:20px 0">
+    <h2>Requirements and pricing</h2>
+    <p><strong>Odoo 18 · Odoo.sh or self-hosted · HTTPS · Base mainnet USDC.</strong></p>
+    <p>A merchant API credential with settlement permission and a Base receiving wallet are required. Supports USD and USDC totals; USD totals are quoted 1:1 in USDC. There is no exchange-rate conversion.</p>
+    <p>The extension is <strong>free to download</strong>. XPay's stated merchant processing fee is <strong>1%</strong>, subject to the merchant agreement. Contact support@x-pay.llc to confirm charges and obtain the applicable agreement before enabling payments.</p>
+    <p>Odoo Online does not support this custom Python add-on. Test mode does not submit real payments. Complete a real-wallet staging payment before enabling live merchant checkout.</p>
+  </div>
+  <div style="padding:24px 12px">
+    <h2>Setup</h2>
+    <ol><li>Install the module on an HTTPS staging instance.</li><li>Open Payment Providers and choose XPay USDC.</li><li>As a system administrator, enter your Base receiving wallet and merchant credential, or configure XPAY_FACILITATOR_KEY on the server.</li><li>Confirm your merchant agreement, settlement permissions and fee. Complete staging acceptance before enabling and publishing the provider.</li><li>Use an existing Odoo order or invoice's normal payment flow. Recheck any pending payment before authorizing a replacement.</li></ol>
+    <h2>What this release supports</h2>
+    <p>Base mainnet USDC, browser-wallet authorization, x402 requests for existing Odoo transactions, independent receipt checks and background reconciliation every two minutes while Odoo cron runs.</p>
+    <p>Generic x402 agents must support the documented order-bound nonce extension. The module does not create orders for agents.</p>
+    <h2>Scope</h2>
+    <p>No BNB, Solana, KRW, cards, custody, automatic refunds, subscriptions, WalletConnect or currency conversion in this release. An included successful receipt is required; finalized-chain guarantees are not claimed. Permanently failed or changed payments require merchant review.</p>
+    <h2>External services and privacy</h2>
+    <p>After merchant configuration and customer authorization, the server sends public payment details, the signature and transaction resource metadata to https://facilitator-xpay.llc/verify and /settle. The merchant credential is sent only to that facilitator. The Base public RPC, https://mainnet.base.org, receives public chain and receipt requests. These services also receive the merchant server's IP address.</p>
+    <p>This module does not transmit customer names, emails, billing/shipping addresses or private wallet keys. Receipts are retained for accounting; signed authorizations are retained until confirmation to allow safe rechecks. Protect the database, backups and private checkout tokens. No remote executable code or usage analytics is loaded.</p>
+    <p>XPay privacy and terms: https://x-pay.llc/legal/ · Base terms: https://docs.base.org/terms-of-service · Base privacy: https://docs.base.org/privacy-policy</p>
+    <h2>Support</h2><p><strong>support@x-pay.llc</strong> · https://x-pay.llc/</p>
+    <p style="font-size:12px;color:#64766a">Independent integration; no endorsement by Odoo, Circle, Coinbase or Base is implied. Unrelated to Nexi XPay, xpayeg and other similarly named payment services.</p>
+  </div>
+</section>
