@@ -1,0 +1,28 @@
+{
+    'name': 'X PAY LAB USDC Payments',
+    'summary': 'Order-bound x402 wallet checkout with verified Base USDC settlement',
+    'version': '18.0.1.0.0',
+    'category': 'Accounting/Payment Providers',
+    'author': 'X PAY LAB LIMITED',
+    'maintainer': 'X PAY LAB LIMITED',
+    'website': 'https://x-pay.llc/',
+    'support': 'support@x-pay.llc',
+    'license': 'LGPL-3',
+    'depends': ['payment', 'portal'],
+    'data': [
+        'views/payment_templates.xml',
+        'views/payment_provider_views.xml',
+        'data/payment_method_data.xml',
+        'data/payment_provider_data.xml',
+        'data/ir_cron_data.xml',
+    ],
+    'assets': {'web.assets_frontend': [
+        'payment_xpay_lab/static/src/checkout.js',
+        'payment_xpay_lab/static/src/checkout.css',
+    ]},
+    'images': ['static/description/banner.jpg'],
+    'external_dependencies': {'python': ['requests']},
+    'installable': True,
+    'application': False,
+    'uninstall_hook': 'uninstall_hook',
+}
